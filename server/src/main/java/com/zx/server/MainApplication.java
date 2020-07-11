@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author ZhangXiong
@@ -17,6 +18,8 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource(value = {"classpath:spring/spring-jdbc.xml"})
 // 扫描mybatis的mapper
 @MapperScan(basePackages = "com.zx.model.mapper")
+// 开启定时任务
+@EnableScheduling
 public class MainApplication extends SpringBootServletInitializer {
 
     // 视频上说，因为该项目是用的外置tomcat跑的

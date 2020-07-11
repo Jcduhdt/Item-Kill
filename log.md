@@ -17,4 +17,20 @@
     取消标红：改为@Autowired(required = false)  
     在视频3-2哪里，若一直是抛异常，取看看你的主启动类哪里的MapperScan是不是被你注销了  
 6. 发现直接在数据库查询与用idea查询得到的商品时间不一致  
-    还没解决  
+    mysql读取时间与系统时间一致，但是通过IDEA得到的时间就不对了，快了8小时  
+    通过IDEA写回Mysql的时间又慢了8小时  
+    解决方案在application.properties连接mysql的url的serverTimezone的值写成Asia/Shanghai  
+    但是之前一直都写成UTC也没出现过这种问题，可能是版本原因吧，毕竟JDK降级了  
+# day 07.11 
+从3-3开始   
+1. 视频使用了postman  
+    我使用IDEA 的REST Client
+    位置：Tools->Http Client->Test RESTFul Web Service  
+    在本项目的设置需要在请求头添加content-type：application/json  
+    具体自己慢慢摸索
+2. 使用REST Client测试通过，但是根据视频结合jsp测试不通过  
+    看看info.jsp的75~81行，使用哪个data，两个同时使用，后面个会把前面的覆盖导致userId为null  
+    所以会返回faild界面，因为这是之后完整的jsp，但视频是一步步来的，要分析现阶段哪些使用了，哪些没用
+3. rabbitMQ的安装  
+    [参考](https://www.jianshu.com/p/c7726ba4b046)  
+    默认用户名和密码都是guest  
