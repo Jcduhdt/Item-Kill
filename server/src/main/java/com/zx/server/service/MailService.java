@@ -1,4 +1,4 @@
-package com.zx.server.services;
+package com.zx.server.service;
 
 import com.zx.server.dto.MailDto;
 import org.slf4j.Logger;

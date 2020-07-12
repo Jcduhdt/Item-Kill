@@ -43,13 +43,13 @@ public class RandomUtil {
      * 测试
      * @param args
      */
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
 
         for (int i = 0; i < 10; i++) {
             System.out.println(generateOrderCode());
         }
         String salt="11299c42bf954c0abb373efbae3f6b26";
-        String password="debug";
+        String password="wy";
         System.out.println(new Md5Hash(password,salt));
-    }*/
+    }
 }

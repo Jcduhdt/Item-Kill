@@ -1,4 +1,4 @@
-package com.zx.server.services;
+package com.zx.server.service;
 
 import com.zx.model.dto.KillSuccessUserInfo;
 import com.zx.model.entity.ItemKillSuccess;

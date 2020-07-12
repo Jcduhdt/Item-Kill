@@ -1,4 +1,4 @@
-package com.zx.server.services;
+package com.zx.server.service;
 
 /**
  * @author ZhangXiong

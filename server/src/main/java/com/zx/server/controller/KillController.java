@@ -5,7 +5,7 @@ import com.zx.api.response.BaseResponse;
 import com.zx.model.dto.KillSuccessUserInfo;
 import com.zx.model.mapper.ItemKillSuccessMapper;
 import com.zx.server.dto.KillDto;
-import com.zx.server.services.IKillService;
+import com.zx.server.service.IKillService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,16 +49,15 @@ public class KillController {
         if (result.hasErrors() || dto.getKillId() <= 0) {
             return new BaseResponse(StatusCode.InvalidParams);
         }
-        /*Object uId = session.getAttribute("uid");
+        Object uId = session.getAttribute("uid");
         if (uId == null) {
             return new BaseResponse(StatusCode.UserNotLogin);
-        }*/
-        Integer userId = dto.getUserId();
-//        Integer userId = (Integer) uId;
+        }
+//        Integer userId = dto.getUserId();
+        Integer userId = (Integer) uId;
 
         BaseResponse response = new BaseResponse(StatusCode.Success);
         try {
-            //Boolean res=killService.killItem(dto.getKillId(),userId);
             Boolean res = killService.killItem(dto.getKillId(), userId);
             if (!res) {
                 return new BaseResponse(StatusCode.Fail.getCode(), "哈哈~商品已抢购完毕或者不在抢购时间段哦!");
@@ -83,11 +82,11 @@ public class KillController {
         }
         BaseResponse response = new BaseResponse(StatusCode.Success);
         try {
-            //不加分布式锁的前提
-            Boolean res = killService.killItemV2(dto.getKillId(), dto.getUserId());
+            //不加分布式锁
+            /*Boolean res = killService.killItemV2(dto.getKillId(), dto.getUserId());
             if (!res) {
                 return new BaseResponse(StatusCode.Fail.getCode(), "不加分布式锁-哈哈~商品已抢购完毕或者不在抢购时间段哦!");
-            }
+            }*/
 
             //基于Redis的分布式锁进行控制
             /*Boolean res = killService.killItemV3(dto.getKillId(), dto.getUserId());
@@ -102,10 +101,10 @@ public class KillController {
             }*/
 
             //基于ZooKeeper的分布式锁进行控制
-            /*Boolean res = killService.killItemV5(dto.getKillId(), dto.getUserId());
+            Boolean res = killService.killItemV5(dto.getKillId(), dto.getUserId());
             if (!res) {
                 return new BaseResponse(StatusCode.Fail.getCode(), "基于ZooKeeper的分布式锁进行控制-哈哈~商品已抢购完毕或者不在抢购时间段哦!");
-            }*/
+            }
 
         } catch (Exception e) {
             response = new BaseResponse(StatusCode.Fail.getCode(), e.getMessage());
