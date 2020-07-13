@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
  * @author ZhangXiong
  * @version v12.0.1
  * @date 2020-07-11
+ * 商品秒杀Controller
  */
 @Controller
 public class KillController {

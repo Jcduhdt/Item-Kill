@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ZhangXiong
  * @version v12.0.1
  * @date 2020-07-12
+ * 用户登录Controller
  */
 @Controller
 public class UserController {

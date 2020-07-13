@@ -1,6 +1,4 @@
-package com.zx.model.dto;/**
- * Created by Administrator on 2019/6/21.
- */
+package com.zx.model.dto;
 
 import com.zx.model.entity.ItemKillSuccess;
 import lombok.Data;
@@ -11,6 +9,7 @@ import java.io.Serializable;
  * @author ZhangXiong
  * @version v12.0.1
  * @date 2020-07-10
+ * 秒杀成功用户的信息
  */
 @Data
 public class KillSuccessUserInfo extends ItemKillSuccess implements Serializable{

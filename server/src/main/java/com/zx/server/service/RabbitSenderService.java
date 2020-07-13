@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @author ZhangXiong
  * @version v12.0.1
  * @date 2020-07-11
+ * Rabbit发送方service
  */
 @Service
 public class RabbitSenderService {
@@ -33,6 +34,10 @@ public class RabbitSenderService {
     @Autowired(required = false)
     private ItemKillSuccessMapper itemKillSuccessMapper;
 
+    /**
+     * 秒杀成功异步发送邮件通知消息，进发送队列
+     * @param orderNo 订单编号
+     */
     public void sendKillSuccessEmailMsg(String orderNo){
         log.info("秒杀成功异步发送邮件通知消息-准备发送消息：{}",orderNo);
         try{

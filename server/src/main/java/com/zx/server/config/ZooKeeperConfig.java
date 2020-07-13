@@ -22,19 +22,18 @@ public class ZooKeeperConfig {
 
     /**
      * 自定义注入ZooKeeper客户端操作实例
+     *
      * @return
      */
     @Bean
-    public CuratorFramework curatorFramework(){
-        CuratorFramework curatorFramework= CuratorFrameworkFactory.builder()
+    public CuratorFramework curatorFramework() {
+        CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
                 .connectString(env.getProperty("zk.host"))
                 .namespace(env.getProperty("zk.namespace"))
                 //重试策略
-                .retryPolicy(new RetryNTimes(5,1000))
+                .retryPolicy(new RetryNTimes(5, 1000))
                 .build();
         curatorFramework.start();
         return curatorFramework;
     }
-
-
 }

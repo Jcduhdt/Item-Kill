@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author ZhangXiong
  * @version v12.0.1
  * @date 2020-07-11
+ * 邮件数据传输对象
  */
 @Data
 @ToString
