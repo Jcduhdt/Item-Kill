@@ -14,4 +14,5 @@
 8. Jmeter 5.0
 9. redis windows版3.2.0
 # 注意
-1. 运行此项目先运行redis以及zookeeper
+1. 该项目使用外置的tomcat运行
+2. 运行此项目先运行redis以及zookeeper

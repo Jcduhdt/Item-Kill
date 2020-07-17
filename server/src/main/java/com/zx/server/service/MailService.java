@@ -40,10 +40,15 @@ public class MailService {
     public void sendSimpleEmail(final MailDto dto) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
+            // 设置发件人
             message.setFrom(env.getProperty("mail.send.from"));
+            // 设置收件人
             message.setTo(dto.getTos());
+            // 设置邮件主题
             message.setSubject(dto.getSubject());
+            // 设置内容
             message.setText(dto.getContent());
+            // 发送
             mailSender.send(message);
 
             log.info("发送简单文本文件-发送成功!");
@@ -65,6 +70,7 @@ public class MailService {
             messageHelper.setFrom(env.getProperty("mail.send.from"));
             messageHelper.setTo(dto.getTos());
             messageHelper.setSubject(dto.getSubject());
+            // html文本
             messageHelper.setText(dto.getContent(), true);
 
             mailSender.send(message);

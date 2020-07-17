@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 // 连接数据库的通用配置
 @ImportResource(value = {"classpath:spring/spring-jdbc.xml"})
-// 扫描mybatis的mapper
+// 扫描mybatis的mapper，动态sql对应的包
 @MapperScan(basePackages = "com.zx.model.mapper")
 // 开启定时任务
 @EnableScheduling

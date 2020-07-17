@@ -50,5 +50,8 @@ day 07.12
 4. The version of ZooKeeper being used doesn't support Container nodes. CreateMode.PERSISTENT will be used instead.  
     emmm
 5. 添加了shiro做登录管理，使用的md5盐值加密  
-    所以在更改info的data字段的数据后，要把数据库中的密码替换为盐值加密后的密码  
+    所以在更改info的data字段的数据后，要把数据库中的密码替换为盐值加密后的密码
+# day 7.17
+1. github提示我在server的pom.xml中的commons-fileupload模块有安全漏洞  
+    按照他的提示将1.3.1改为了1.3.3，测试了一下功能正常  
     

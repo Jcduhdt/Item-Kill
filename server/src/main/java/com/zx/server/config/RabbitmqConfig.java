@@ -32,7 +32,7 @@ public class RabbitmqConfig {
     @Autowired
     private Environment env;
 
-    // 缓存连接工厂
+    // 缓存连接工厂，连接mq的连接工厂
     @Autowired
     private CachingConnectionFactory connectionFactory;
 
@@ -47,10 +47,16 @@ public class RabbitmqConfig {
     @Bean(name = "singleListenerContainer")
     public SimpleRabbitListenerContainerFactory listenerContainer(){
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        // 设置连接工厂
         factory.setConnectionFactory(connectionFactory);
+        //设置消息转换器，因为传输的是java对象的话，要将其序列化，
+        // 使用Jackson2JsonMessageConverter会比较有效
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        // 设置唯一消费者
         factory.setConcurrentConsumers(1);
+        // 设置最多有多少消费者进行消费
         factory.setMaxConcurrentConsumers(1);
+        // 设置每次消费多少条消息
         factory.setPrefetchCount(1);
         factory.setTxSize(1);
         return factory;
@@ -65,8 +71,9 @@ public class RabbitmqConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factoryConfigurer.configure(factory,connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
-        //确认消费模式-NONE  默认的
+        //确认消费模式-NONE  默认的，不需要
         factory.setAcknowledgeMode(AcknowledgeMode.NONE);
+        // 通过配置
         factory.setConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.simple.concurrency",int.class));
         factory.setMaxConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.simple.max-concurrency",int.class));
         factory.setPrefetchCount(env.getProperty("spring.rabbitmq.listener.simple.prefetch",int.class));
@@ -96,24 +103,26 @@ public class RabbitmqConfig {
 
 
     //构建异步发送邮箱通知的消息模型
+    // 队列
     @Bean
     public Queue successEmailQueue(){
         return new Queue(env.getProperty("mq.kill.item.success.email.queue"),true);
     }
 
+    // 交换机
     @Bean
     public TopicExchange successEmailExchange(){
         return new TopicExchange(env.getProperty("mq.kill.item.success.email.exchange"),true,false);
     }
 
+    // 通过路由key绑定交换机与队列
     @Bean
     public Binding successEmailBinding(){
         return BindingBuilder.bind(successEmailQueue()).to(successEmailExchange()).with(env.getProperty("mq.kill.item.success.email.routing.key"));
     }
 
 
-    //构建秒杀成功之后-订单超时未支付的死信队列消息模型
-
+    // 构建秒杀成功之后-订单超时未支付的死信队列消息模型
     @Bean
     public Queue successKillDeadQueue(){
         Map<String, Object> argsMap= Maps.newHashMap();
